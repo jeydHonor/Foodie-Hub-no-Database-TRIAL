@@ -1,0 +1,493 @@
+:root {
+            --primary: #ff6b6b;
+            --secondary: #4ecdc4;
+            --dark: #292f36;
+            --light: #f7fff7;
+            --accent: #ffb347;
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
+            background-color: var(--dark);
+            color: var(--light);
+            overflow-x: hidden;
+        }
+        /* Navigation Bar Styles */
+        .navbar {
+            background-color: var(--dark);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .navbar .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--primary);
+            text-decoration: none;
+        }
+        .navbar ul {
+            list-style: none;
+            display: flex;
+            gap: 1.5rem;
+        }
+        .navbar ul li a {
+            color: var(--light);
+            text-decoration: none;
+            font-size: 1.1rem;
+            transition: color 0.3s ease;
+        }
+        .navbar ul li a:hover {
+            color: var(--secondary);
+        }
+
+        header {
+            padding: 2rem;
+            text-align: center;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            position: relative;
+            overflow: hidden;
+        }
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/f2673e1e-e1d8-4937-b397-07d437c284e7.png') center/cover;
+            opacity: 0.2;
+            z-index: 0;
+        }
+        header h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 1;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+        header p {
+            font-size: 1.2rem;
+            position: relative;
+            z-index: 1;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .container {
+            padding: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        .food-card {
+            background: var(--dark);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+            transition: all 0.3s ease;
+            position: relative;
+            cursor: pointer;
+        }
+        .food-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.5);
+        }
+        .food-card:hover .food-image {
+            filter: brightness(0.5) blur(1px);
+        }
+        .food-card:hover .recipe-card {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        .food-image {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            transition: all 0.3s ease;
+        }
+        .food-info {
+            padding: 1.5rem;
+        }
+        .food-info h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+        }
+        .food-info p {
+            color: #ccc;
+            margin-bottom: 1rem;
+        }
+        .price {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: var(--accent);
+        }
+        .recipe-card {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(0,0,0,0.8);
+            padding: 1.5rem;
+            transform: translateY(100%);
+            opacity: 0;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .recipe-card h4 {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            color: var(--secondary);
+        }
+        .recipe-card ul {
+            margin-bottom: 1rem;
+            padding-left: 1.5rem;
+        }
+        .recipe-card ul li {
+            margin-bottom: 0.5rem;
+        }
+        .recipe-card p {
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+        /* Modal styles */
+        #foodModal {
+            display: none;
+            position: fixed;
+            top:0; left:0;
+            width: 100%; height: 100%;
+            background: rgba(0,0,0,0.8);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        #foodModal.show {
+            display: flex !important;
+            animation: fadeIn 0.3s ease forwards;
+        }
+        @keyframes fadeIn {
+            from {opacity: 0;}
+            to {opacity: 1;}
+        }
+        #foodModal > div {
+            background: var(--dark);
+            border-radius: 16px;
+            max-width: 800px;
+            width: 90%;
+            padding: 1rem;
+            position: relative;
+            color: var(--light);
+        }
+        #modalClose {
+            position: absolute;
+            top: 10px; right: 10px;
+            background: var(--primary);
+            border: none;
+            color: white;
+            font-size: 1.2rem;
+            border-radius: 50%;
+            width: 30px; height: 30px;
+            cursor: pointer;
+        }
+        #modalVideo {
+            width: 100%;
+            border-radius: 12px;
+        }
+        #modalRecipe {
+            margin-top: 1rem;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        /* Section Styles */
+        .content-section {
+            display: none; /* Hidden by default */
+            padding: 2rem;
+            background-color: var(--dark);
+            color: var(--light);
+            min-height: 50vh;
+        }
+        .content-section.active {
+            display: block; /* Show active section */
+        }
+
+        /* Login/Register Styles */
+        #login-register {
+            text-align: center;
+            padding: 4rem 2rem;
+        }
+        #login-register .form-container {
+            background: #3a3f44;
+            padding: 2rem;
+            border-radius: 10px;
+            max-width: 400px;
+            margin: 2rem auto;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.4);
+        }
+        #login-register h2 {
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+        }
+        #login-register input[type="text"],
+        #login-register input[type="password"],
+        #login-register input[type="email"] {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin-bottom: 1rem;
+            border: 1px solid #555;
+            border-radius: 5px;
+            background-color: #292f36;
+            color: var(--light);
+        }
+        #login-register .form-toggle-buttons {
+            margin-bottom: 1.5rem;
+        }
+        #login-register .form-toggle-buttons button {
+            background-color: var(--secondary);
+            color: var(--dark);
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s ease;
+            margin: 0 0.5rem;
+        }
+        #login-register .form-toggle-buttons button:hover {
+            background-color: #3bb0a7;
+        }
+        #login-register .form-toggle-buttons button.active {
+            background-color: var(--primary);
+            color: var(--light);
+        }
+
+        #login-form, #register-form {
+            display: none; /* Hidden by default */
+        }
+        #login-form.active, #register-form.active {
+            display: block; /* Show when active */
+        }
+
+        #login-register button[type="submit"] {
+            background-color: var(--secondary);
+            color: var(--dark);
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s ease;
+        }
+        #login-register button[type="submit"]:hover {
+            background-color: #3bb0a7;
+        }
+
+        /* About Section Styles */
+        #about {
+            text-align: center;
+            padding: 4rem 2rem;
+        }
+        #about h2 {
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+        }
+        #about p {
+            max-width: 800px;
+            margin: 0 auto 1rem auto;
+            line-height: 1.6;
+        }
+
+        /* Members Section Styles */
+        #members {
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+        #members h2 {
+            color: var(--primary);
+            margin-bottom: 2rem;
+        }
+        .member-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 2rem;
+            justify-content: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .member-card {
+            background: #3a3f44;
+            border-radius: 15px;
+            padding: 1.5rem;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-align: center;
+        }
+        .member-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 24px rgba(0,0,0,0.5);
+        }
+        .member-card img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 1rem;
+            border: 3px solid var(--secondary);
+        }
+        .member-card h3 {
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+        }
+        .member-card p {
+            font-size: 0.9rem;
+            color: #bbb;
+        }
+
+        /* Community Section Styles */
+        #community {
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+        #community h2 {
+            color: var(--primary);
+            margin-bottom: 2rem;
+        }
+        .post-form {
+            background: #3a3f44;
+            padding: 2rem;
+            border-radius: 10px;
+            max-width: 700px;
+            margin: 0 auto 3rem auto;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.4);
+        }
+        .post-form textarea {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin-bottom: 1rem;
+            border: 1px solid #555;
+            border-radius: 5px;
+            background-color: #292f36;
+            color: var(--light);
+            min-height: 100px;
+            resize: vertical;
+        }
+        .post-form button {
+            background-color: var(--secondary);
+            color: var(--dark);
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s ease;
+        }
+        .post-form button:hover {
+            background-color: #3bb0a7;
+        }
+        .community-posts {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .community-post-card {
+            background: #3a3f44;
+            border-radius: 15px;
+            padding: 1.5rem;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+            text-align: left;
+        }
+        .community-post-card h4 {
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+        }
+        .community-post-card p {
+            color: #bbb;
+            line-height: 1.5;
+        }
+        .community-post-card .post-meta {
+            font-size: 0.8rem;
+            color: #888;
+            margin-top: 1rem;
+            text-align: right;
+        }
+
+        /* Feedback Section Styles */
+        #feedback {
+            text-align: center;
+            padding: 4rem 2rem;
+        }
+        #feedback h2 {
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+        }
+        #feedback .feedback-form {
+            background: #3a3f44;
+            padding: 2rem;
+            border-radius: 10px;
+            max-width: 600px;
+            margin: 2rem auto;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.4);
+        }
+        #feedback .feedback-form input[type="text"],
+        #feedback .feedback-form input[type="email"],
+        #feedback .feedback-form textarea {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin-bottom: 1rem;
+            border: 1px solid #555;
+            border-radius: 5px;
+            background-color: #292f36;
+            color: var(--light);
+            resize: vertical;
+        }
+        #feedback .feedback-form button {
+            background-color: var(--secondary);
+            color: var(--dark);
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s ease;
+        }
+        #feedback .feedback-form button:hover {
+            background-color: #3bb0a7;
+        }
+
+
+        @media (max-width: 768px) {
+            .gallery {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+            header h1 {
+                font-size: 2rem;
+            }
+            .navbar {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            .navbar ul {
+                flex-direction: column;
+                gap: 0.8rem;
+            }
+        }

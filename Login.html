@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <title>Food Website</title>
+</head>
+<body>
+    <div class="navbar">
+        <a href="#home" class="logo">FoodieHub</a>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="Login.html">Login/Register</a></li>
+            <li><a href="About.html">About</a></li>
+            <li><a href="Members.html">Members</a></li>
+            <li><a href="Community.html">Community</a></li>
+            <li><a href="Feedback.html">Feedback</a></li>
+        </ul>
+    </div>
+    
+    <h2>Login / Register</h2>
+<div class="form-container">
+    <div class="form-toggle-buttons">
+        <button id="showLoginBtn" class="active">Login</button>
+        <button id="showRegisterBtn">Register</button>
+    </div>
+
+    <div id="login-form" class="active">
+        <h3>Login</h3>
+        <form>
+            <input type="text" placeholder="Username" required />
+            <input type="password" placeholder="Password" required />
+            <button type="submit">Login</button>
+        </form>
+    </div>
+
+    <div id="register-form">
+        <h3>Register</h3>
+        <form>
+            <input type="text" placeholder="Username" required />
+            <input type="email" placeholder="Email" required />
+            <input type="password" placeholder="Password" required />
+            <input type="password" placeholder="Confirm Password" required />
+            <button type="submit">Register</button>
+        </form>
+    </div>
+</div>
+</body>
+</html>
